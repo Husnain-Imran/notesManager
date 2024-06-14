@@ -1,10 +1,18 @@
 
 import './App.css';
+import Footer from './component/Footer';
+import Header from './component/Header';
+import LandingPage from './screens/landing page/LandingPage';
+
 
 function App() {
   return (
     <div className="App">
-      Im nano working as a full stack developer
+     <Header />
+     <main>
+      <LandingPage />
+     </main>
+     <Footer  />
     </div>
   );
 }
