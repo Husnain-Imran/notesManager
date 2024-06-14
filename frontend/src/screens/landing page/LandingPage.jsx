@@ -1,11 +1,15 @@
 import React from 'react'
 import "./LandingPage.css";
 import { Container, Row,Button } from 'react-bootstrap';
+import Header from '../../component/Header';
+import Footer from '../../component/Footer';
 
 // import { Container,Row } from "react-bootstrap";
 
 const LandingPage = () => {
   return (
+  
+    
     <div className="main">
       <Container>
         <div className="intro-text">
@@ -25,13 +29,14 @@ const LandingPage = () => {
               size="lg"
               variant="outline-primary"
               className="Landing-button"
-            >
+              >
               Register
             </Button>
           </a>
         </div>
       </Container>
     </div>
+   
   );
 }
 
