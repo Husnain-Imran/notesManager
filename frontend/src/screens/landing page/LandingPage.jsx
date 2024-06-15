@@ -3,10 +3,12 @@ import "./LandingPage.css";
 import { Container, Row,Button } from 'react-bootstrap';
 import Header from '../../component/Header';
 import Footer from '../../component/Footer';
+import axios from "axios";
 
 // import { Container,Row } from "react-bootstrap";
 
 const LandingPage = () => {
+
   return (
   
     
