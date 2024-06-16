@@ -24,7 +24,7 @@ const Mynotes = () => {
       fetchData();
     }, []);
   return (
-    <MainScreen title={ `hello ${user.name} wellcome back` }>
+    <MainScreen title={ `hello  ${user.name}  wellcome back` }>
       <Link to="createnotes">
         <Button style={{ marginLeft: 10, marginBottom: 6 }} size="lg">
           Create New Note

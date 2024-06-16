@@ -7,14 +7,26 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Link, useNavigate } from "react-router-dom";
 import Mynotes from "../MyNotes/Mynotes";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { resetUser } from "../Store/authSlice";
+
 
 
 const Header = () => {
-  const navigate = useNavigate()
+
+  const  navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const {user} = useSelector(state => state.auth);
+  
+ 
+  
+
   return (
     <Navbar expand="lg" bg="primary" variant="dark">
       <Container>
-        <Navbar.Brand >
+        <Navbar.Brand>
           <Link to="/">Nano Notes</Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -35,14 +47,29 @@ const Header = () => {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link ><Link to="/mynotes">My Notes</Link></Nav.Link>
+            <Nav.Link>
+              <Link to="/mynotes">My Notes</Link>
+            </Nav.Link>
 
-            <NavDropdown title="nano" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">My profile </NavDropdown.Item>
-              <NavDropdown.Item href="#action3" onClick={()=>{localStorage.clear();
-                navigate('/login');
-              }}>Logout </NavDropdown.Item>
-            </NavDropdown>
+            {user ? (
+              <NavDropdown title={user.name} id="navbarScrollingDropdown">
+                <NavDropdown.Item href="#action3">My profile </NavDropdown.Item>
+                <NavDropdown.Item
+                  href="#action3"
+                  onClick={() => {
+                    localStorage.clear();
+                    navigate("/login");
+                    dispatch(resetUser());
+                  }}
+                >
+                  Logout{" "}
+                </NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <Nav.Link>
+                <Link to="/login">Login</Link>
+              </Nav.Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

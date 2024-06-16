@@ -38,11 +38,11 @@ const Loginscreen = () => {
                   config
                 );
                 localStorage.setItem('token',data.token);
-                console.log(data);
+                // console.log(data);
                 // setLoading(false);
                 dispatch(hideLoading());
                 setError(false);
-                navigate('/mynotes'); 
+                navigate("/myNotes"); 
         } catch (error) {
             // setLoading(false);
             dispatch(hideLoading());

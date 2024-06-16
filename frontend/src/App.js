@@ -16,28 +16,35 @@ function App() {
       <Routes>
         <Route path="/" element={
           <PublicRoute>
-
           <LandingPage />
+   
           </PublicRoute>
+        
           } />
         <Route path="/myNotes" element={
-          <PrivateRoute>
 
+          <PrivateRoute>
+     
           <Mynotes/>
+    
           </PrivateRoute>
           
           } />
         <Route path="/register" element={
           <PublicRoute>
 
+
           <Registerscreen/>
+         
           </PublicRoute>
           } />
         <Route path="/login" element={
-          <PublicRoute>
+         <PublicRoute>
+
 
           <Loginscreen/>
-          </PublicRoute>
+         
+         </PublicRoute>
           } />
      
       </Routes>

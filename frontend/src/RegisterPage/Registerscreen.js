@@ -5,6 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import Loader from "../component/Loader";
 import ErrorMessage from "../component/ErrorMessage";
+import { useNavigate } from "react-router-dom";
 
 const Registerscreen = () => {
   const [email, setEmail] = useState("");
@@ -12,6 +13,8 @@ const Registerscreen = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
   const [image, setImage] = useState(
     "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
   );
@@ -37,6 +40,7 @@ const Registerscreen = () => {
       console.log(data);
       setLoading(false);
       setError(false);
+      navigate("/login");
     } catch (error) {
       setLoading(false);
       setError(error.response.data.message);
