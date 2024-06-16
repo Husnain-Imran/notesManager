@@ -6,16 +6,39 @@ import LandingPage from "./screens/landing page/LandingPage";
 import Mynotes from "./MyNotes/Mynotes";
 import Registerscreen from "./RegisterPage/Registerscreen";
 import Loginscreen from "./Login/Loginscreen";
+import PrivateRoute from "./Routes/PrivateRoute";
+import PublicRoute from "./Routes/PublicRoute";
 
 function App() {
   return (
     <>
     < Header />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/myNotes" element={<Mynotes/>} />
-        <Route path="/register" element={<Registerscreen/>} />
-        <Route path="/login" element={<Loginscreen/>} />
+        <Route path="/" element={
+          <PublicRoute>
+
+          <LandingPage />
+          </PublicRoute>
+          } />
+        <Route path="/myNotes" element={
+          <PrivateRoute>
+
+          <Mynotes/>
+          </PrivateRoute>
+          
+          } />
+        <Route path="/register" element={
+          <PublicRoute>
+
+          <Registerscreen/>
+          </PublicRoute>
+          } />
+        <Route path="/login" element={
+          <PublicRoute>
+
+          <Loginscreen/>
+          </PublicRoute>
+          } />
      
       </Routes>
       <Footer />

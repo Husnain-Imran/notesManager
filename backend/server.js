@@ -3,6 +3,8 @@ const dotenv = require("dotenv");
 const data = require("./data/notes");
 const connectDB = require("./config/db");
 const authRouter = require("./routes/authRoutes");
+// const userRouter = require("./routes/userRoutes");
+const userRouter = require("./routes/userRoutes")
 // const { notFound, errorHandler } = require("./Middlewares/errorMiddleware");
 const errorMiddleware = require("./Middlewares/errorMiddleware");
 
@@ -21,6 +23,7 @@ console.log(process.env.PORT);
 
 
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/user", userRouter);
 
 app.get("/api/notes", (req, res) => {
     res.json(data);

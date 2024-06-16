@@ -5,11 +5,20 @@ import { useState } from "react";
 import axios from "axios";
 import Loader from "../component/Loader";
 import ErrorMessage from "../component/ErrorMessage";
+import { useNavigate } from "react-router-dom";
+import { useDispatch ,useSelector } from "react-redux";
+import { showLoading ,hideLoading } from "../Store/alertSlice";
+
 const Loginscreen = () => {
+  const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
+    const {loading} = useSelector(state => state.alert);
+    const dispatch = useDispatch(); 
+
+
 
 
 
@@ -21,18 +30,22 @@ const Loginscreen = () => {
                  "Content-type": "application/json",
                },
              };
-                setLoading(true);
+                // setLoading(true);
+                dispatch(showLoading());
                 const { data } = await axios.post(
                   "/api/v1/auth/login",
                   { email, password },
                   config
                 );
-                localStorage.setItem('userInfo',JSON.stringify(data));
+                localStorage.setItem('token',data.token);
                 console.log(data);
-                setLoading(false);
+                // setLoading(false);
+                dispatch(hideLoading());
                 setError(false);
+                navigate('/mynotes'); 
         } catch (error) {
-            setLoading(false);
+            // setLoading(false);
+            dispatch(hideLoading());
             setError(error.response.data.message);
         }
       

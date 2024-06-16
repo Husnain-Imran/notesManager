@@ -33,7 +33,7 @@ const Registerscreen = () => {
         { name,email, password },
         config
       );
-      localStorage.setItem("userInfo", JSON.stringify(data));
+      // localStorage.setItem("userInfo", JSON.stringify(data));
       console.log(data);
       setLoading(false);
       setError(false);

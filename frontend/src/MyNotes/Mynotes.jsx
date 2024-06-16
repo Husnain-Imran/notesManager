@@ -4,8 +4,11 @@ import { Link } from "react-router-dom";
 import { Accordion, Badge, Button, Card } from "react-bootstrap";
 import notes from "../data/notes";
 import axios from "axios"
+import { useSelector } from "react-redux";
 
 const Mynotes = () => {
+  const {user } = useSelector(state => state.auth)
+  // console.log(user)
   const deleHandle = (id) => {
     if (window.confirm("Are you sure?")) {
       // deleteNote(id);
@@ -21,7 +24,7 @@ const Mynotes = () => {
       fetchData();
     }, []);
   return (
-    <MainScreen title={"hi husnain welcome back"}>
+    <MainScreen title={ `hello ${user.name} wellcome back` }>
       <Link to="createnotes">
         <Button style={{ marginLeft: 10, marginBottom: 6 }} size="lg">
           Create New Note
