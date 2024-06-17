@@ -10,18 +10,14 @@ import Mynotes from "../MyNotes/Mynotes";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { resetUser } from "../Store/authSlice";
+import { set } from "mongoose";
+// import { useSelector } from "react-redux";
 
-
-
-const Header = () => {
-
-  const  navigate = useNavigate();
+const Header = ({ setSearch }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const {user} = useSelector(state => state.auth);
-  
- 
-  
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <Navbar expand="lg" bg="primary" variant="dark">
@@ -32,14 +28,19 @@ const Header = () => {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <nav className="m-auto">
-            <Form className="d-flex">
-              <Form.Control
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-              />
-            </Form>
+            {user && (
+              <Form className="d-flex">
+                <Form.Control
+                  type="search"
+                  placeholder="Search"
+                  className="me-2"
+                  aria-label="Search"
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                  }}
+                />
+              </Form>
+            )}
           </nav>
 
           <Nav

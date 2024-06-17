@@ -4,7 +4,7 @@ const asyncHandler = require('express-async-handler');
 
 const getNotes = asyncHandler(async (req, res) => {
     const notes = await note.find({ user: req.body.user.userId });
-    res.json(notes);
+    res.json({notes:notes,succes:true});
 })
 
 const createNote =  asyncHandler(async (req, res) => {
@@ -31,7 +31,7 @@ const getNoteById = asyncHandler(async (req, res) => {
     const Note = await note.findById(req.params.id);
     if(Note)
     {
-        res.json(Note)
+        res.json({data:Note})
     }
     else{
         res.status(404);
@@ -55,7 +55,7 @@ const updateNoteById = asyncHandler(async (req, res) => {
             Note.content = content;
             Note.category = category;
             const updatedNote = await Note.save();
-            res.json(updatedNote)
+            res.json({data:updatedNote,succes:true})
         }
         else
         {

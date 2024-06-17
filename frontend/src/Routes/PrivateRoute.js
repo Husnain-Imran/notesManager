@@ -4,11 +4,39 @@ import { showLoading, hideLoading } from "../Store/alertSlice";
 import axios from "axios";
 import { setUser } from "../Store/authSlice";
 import { Navigate } from "react-router-dom";
+import { setNote } from "../Store/noteSlice";
 
 const PrivateRoute = ({ children }) => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);  // Add loading state
+
+  
+    const fetchData = async () => {
+      try {
+        dispatch(showLoading());
+        console.log("Getting notes", localStorage.getItem("token"));
+
+        const { data } = await axios.get(
+          "/api/v1/note/getNotes",
+          //  { token: localStorage.getItem("token") },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        console.log(data.notes);
+        if (data.notes) {
+          dispatch(setNote(data.notes));
+          dispatch(hideLoading());
+          console.log("notes", data.notes);
+        }
+      } catch (error) {
+        console.log("err", error);
+        dispatch(hideLoading());
+      }
+    };
 
   useEffect(() => {
     const getUser = async () => {
@@ -24,6 +52,8 @@ const PrivateRoute = ({ children }) => {
             },
           }
         );
+        
+      
         dispatch(hideLoading());
         if (data.success) {
           dispatch(setUser(data.data));
@@ -37,6 +67,7 @@ const PrivateRoute = ({ children }) => {
       } finally {
         setLoading(false); // Ensure loading state is set to false once the fetch is done
       }
+      fetchData()
     };
 
     if (!user) {
