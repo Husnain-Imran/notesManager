@@ -11,13 +11,14 @@ import PublicRoute from "./Routes/PublicRoute";
 import CreateNotes from "./createNotes/CreateNotes";
 import SingleNote from "./createNotes/SingleNote";
 import { useState } from "react";
+import Qrcode from "./Qrcode/Qrcode";
 
 function App() {
   const [search, setSearch] = useState("");
   console.log(search);
   return (
     <>
-      <Header  setSearch={setSearch}/>
+      <Header setSearch={setSearch} />
       <Routes>
         <Route
           path="/"
@@ -31,7 +32,7 @@ function App() {
           path="/myNotes"
           element={
             <PrivateRoute>
-              <Mynotes search={search}/>
+              <Mynotes search={search} />
             </PrivateRoute>
           }
         />
@@ -60,7 +61,15 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="note/:id"  element={<SingleNote/>}/>
+        <Route path="note/:id" element={<SingleNote />} />
+        <Route
+          path="register2fa"
+          element={
+            <PrivateRoute>
+              <Qrcode />
+            </PrivateRoute>
+          }
+        />
       </Routes>
       <Footer />
     </>

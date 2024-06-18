@@ -6,6 +6,7 @@ const authRouter = require("./routes/authRoutes");
 // const userRouter = require("./routes/userRoutes");
 const userRouter = require("./routes/userRoutes")
 const noteRouter = require("./routes/noteRoutes");
+const twofaRouter = require("./routes/2faRoutes");  
 // const { notFound, errorHandler } = require("./Middlewares/errorMiddleware");
 const errorMiddleware = require("./Middlewares/errorMiddleware");
 
@@ -26,6 +27,7 @@ console.log(process.env.PORT);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/note", noteRouter);
+app.use("/api/v1/2fa", twofaRouter);
 
 app.get("/api/notes", (req, res) => {
     res.json(data);

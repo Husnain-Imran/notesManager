@@ -20,6 +20,12 @@ const userSchema = mongoose.Schema({
     required: true,
     default: false,
   },
+  is2FAEnabled: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  
   pic: {
     type: String,
     required: true,
