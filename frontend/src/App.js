@@ -10,12 +10,23 @@ import PrivateRoute from "./Routes/PrivateRoute";
 import PublicRoute from "./Routes/PublicRoute";
 import CreateNotes from "./createNotes/CreateNotes";
 import SingleNote from "./createNotes/SingleNote";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Qrcode from "./Qrcode/Qrcode";
-
+import Verifytfa from "./2faVerify/Verifytfa";
+import { useSelector ,useDispatch } from "react-redux"
+import { Navigate } from "react-router-dom";
+import { verify } from "./Store/tfaSlice";
 function App() {
   const [search, setSearch] = useState("");
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
   console.log(search);
+  useEffect(()=>
+  {
+    dispatch(verify());
+    
+
+  },[dispatch])
   return (
     <>
       <Header setSearch={setSearch} />
@@ -26,6 +37,20 @@ function App() {
             <PublicRoute>
               <LandingPage />
             </PublicRoute>
+          }
+        />
+        <Route
+          path="/verifyTfa"
+          element={
+            user ? (
+              user.is2FAEnabled ? (
+                <Verifytfa />
+              ) : (
+                <Navigate to="/login" />
+              )
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
         <Route
@@ -44,6 +69,7 @@ function App() {
             </PublicRoute>
           }
         />
+        {}
         <Route
           path="/login"
           element={

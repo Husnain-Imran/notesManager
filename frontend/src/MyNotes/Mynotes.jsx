@@ -12,6 +12,7 @@ import Loader from "../component/Loader";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { removeNote } from "../Store/noteSlice";
+import { verify } from "../Store/tfaSlice";
 
 
 
@@ -45,14 +46,17 @@ const Mynotes = ({search}) => {
     }
    
   };
-  const createNote = () => {
-    navigate("myNotes/createnotes");
+  const createNote = (e) => {
+    e.preventDefault();
+     dispatch(verify());
+    navigate("/createNote");
   };
 
 
     useEffect(() => {
        const fetchData = async () => {
          try {
+         
            dispatch(showLoading());
            console.log("Getting notes", localStorage.getItem("token"));
 
@@ -82,7 +86,7 @@ const Mynotes = ({search}) => {
   return (
     <MainScreen title={`hello  ${user.name}  wellcome back`}>
       
-        <Button style={{ marginLeft: 10, marginBottom: 6 }} size="lg"  href="/createNote">
+        <Button style={{ marginLeft: 10, marginBottom: 6 }} size="lg"  href="/createNote" onSubmit={createNote}>
           Create New Note
         </Button >
       

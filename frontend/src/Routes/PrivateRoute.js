@@ -5,11 +5,15 @@ import axios from "axios";
 import { setUser } from "../Store/authSlice";
 import { Navigate } from "react-router-dom";
 import { setNote } from "../Store/noteSlice";
+import{ useNavigate } from "react-router-dom";
 
 const PrivateRoute = ({ children }) => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);  // Add loading state
+  const navigate = useNavigate(); 
+  const {verify} = useSelector((state)=>state.tfa)
+  console.log(verify)
 
   
     const fetchData = async () => {
@@ -80,8 +84,16 @@ const PrivateRoute = ({ children }) => {
 
   if (loading) {
     return <div>Loading...</div>; // Show loading indicator
-  } else if (user) {
-    return children; // Render children when user is fetched
+  } 
+  else if(user.is2FAEnabled  && !verify)
+    {
+      return <Navigate to= "/verifyTfa" />
+    }
+ 
+  else if (user) {
+  
+
+      return children; // Render children when user is fetched
   } else {
     return <Navigate to="/login" />; // Redirect if no user and not loading
   }

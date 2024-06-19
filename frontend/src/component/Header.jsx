@@ -11,6 +11,8 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { resetUser } from "../Store/authSlice";
 import { set } from "mongoose";
+import { resetVerify } from "../Store/tfaSlice";
+
 // import { useSelector } from "react-redux";
 
 const Header = ({ setSearch }) => {
@@ -55,15 +57,22 @@ const Header = ({ setSearch }) => {
             {user ? (
               <NavDropdown title={user.name} id="navbarScrollingDropdown">
                 <NavDropdown.Item href="#action3">My profile </NavDropdown.Item>
-                <NavDropdown.Item onClick={()=>{
-                  navigate("/register2fa");
-                }} >Two Factor auth</NavDropdown.Item>
+                {!user.is2FAEnabled && (
+                  <NavDropdown.Item
+                    onClick={() => {
+                      navigate("/register2fa");
+                    }}
+                  >
+                    Two Factor Auth
+                  </NavDropdown.Item>
+                )}
                 <NavDropdown.Item
                   href="#action3"
                   onClick={() => {
                     localStorage.clear();
                     navigate("/login");
                     dispatch(resetUser());
+                    dispatch(resetVerify());
                   }}
                 >
                   Logout{" "}
